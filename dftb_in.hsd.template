@@ -1,0 +1,41 @@
+Geometry = XYZFormat {
+  <<< "%%GEOMETRY_FILE%%"
+}
+
+Driver = GeometryOptimization {
+    Optimizer = Rational {}
+    MaxSteps = 100
+    OutputPrefix = "opt"
+    Convergence { GradElem = 1E-3 }
+}
+
+Hamiltonian = DFTB {
+  SCC = Yes
+  SCCTolerance = 1e-5
+  MaxAngularMomentum = {
+%%MAX_ANGULAR_MOMENTUM%%
+  }
+  SlaterKosterFiles = Type2FileNames {
+    Separator = "-"
+    Suffix = ".skf"
+    Prefix = "skf/"
+  }
+  Filling = Fermi {
+    Temperature [Kelvin] = 100.0
+  }
+  Charge = %%CHARGE%%
+}
+
+Options {
+    WriteDetailedXml = Yes
+    WriteAutotestTag = Yes
+}
+
+Analysis {
+    CalculateForces = Yes
+    WriteEigenvectors = Yes
+}
+
+ParserOptions {
+  ParserVersion = 6
+}
