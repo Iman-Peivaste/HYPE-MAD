@@ -1,0 +1,48 @@
+Geometry = VaspFormat {
+  <<< "geometry.vasp"
+}
+
+Driver = {}
+
+Hamiltonian = DFTB {
+  SCC = Yes
+  SCCTolerance = 1e-6
+  charge = -1  # Placeholder for charge
+  MaxAngularMomentum = {
+    C = "p"
+    H = "s"
+    O = "p"
+    S = "p"
+
+  }
+
+  SlaterKosterFiles = Type2FileNames {
+      Separator = "-"
+      Suffix = ".skf"
+      Prefix = "3ob/"
+  }
+
+  Filling = Fermi {
+      Temperature [Kelvin] = 1000.0
+  }
+
+  KPointsAndWeights [relative] = {
+      0.0 0.0 0.0 1.0
+      0.0 0.0 0.5 1.0
+      0.0 0.0 1.0 1.0
+  }
+}
+
+Options {
+    WriteDetailedXml = Yes
+    WriteDetailedOut = Yes
+}
+
+Analysis {
+    WriteBandOut = Yes
+    WriteEigenvectors = Yes
+}
+
+ParserOptions {
+  ParserVersion = 6
+}
